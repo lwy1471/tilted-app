@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://lwy1471.github.io/tilted-app/sitemap.xml
+Sitemap: https://tilted.online/sitemap.xml
 
 # Allow all search engines to crawl the site
 User-agent: Googlebot
