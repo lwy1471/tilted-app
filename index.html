@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en"> <!-- 기본 언어 -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    
+    <!-- SEO Meta Tags -->
+    <title data-i18n="meta.title">Tilt - Smartphone Level Tool</title>
+    <meta name="description" data-i18n="meta.description" content="An accurate and easy-to-use tilt meter and level tool on your smartphone. Perfect for DIY, construction, and home projects. No installation needed.">
+    
+    <!-- Favicon and Theme -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <meta name="theme-color" content="#007AFF"/>
+    
+    <!-- Hreflang links for SEO -->
+    <link rel="alternate" hreflang="x-default" href="https://tilted.app/">
+    <link rel="alternate" hreflang="en" href="https://tilted.app/?lang=en">
+    <link rel="alternate" hreflang="ko" href="https://tilted.app/?lang=ko">
+    <link rel="alternate" hreflang="zh" href="https://tilted.app/?lang=zh">
+    <link rel="alternate" hreflang="es" href="https://tilted.app/?lang=es">
+    <link rel="alternate" hreflang="ar" href="https://tilted.app/?lang=ar">
+    <link rel="alternate" hreflang="ja" href="https://tilted.app/?lang=ja">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 좌측 광고 (데스크톱 전용) -->
+    <div class="ad-sidebar ad-left">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXX"
+             data-ad-slot="1111111111"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <!-- 우측 광고 (데스크톱 전용) -->
+    <div class="ad-sidebar ad-right">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXX"
+             data-ad-slot="2222222222"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+    </div>
+
+    <div class="container">
+        <!-- 상단 광고 -->
+        <div class="ad-container ad-top">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXX"
+                 data-ad-slot="3333333333"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        </div>
+
+        <header>
+            <h1 data-i18n="title">📱 Tilt Level</h1>
+            <p class="welcome" data-i18n="welcome">Accurate tilt measurement for your smartphone.</p>
+        </header>
+
+        <main>
+            <!-- 모바일 전용 안내 -->
+            <div id="mobile-only" class="guide-card" style="display: none;">
+                <div class="icon">🚫</div>
+                <h2 data-i18n="mobile_only.title">PC에서는 사용할 수 없습니다</h2>
+                <p data-i18n="mobile_only.description">이 앱은 스마트폰의 센서를 사용합니다. 모바일 기기로 접속해주세요.</p>
+            </div>
+
+            <!-- 메인 화면 -->
+            <div id="main-guide" class="guide-card">
+                <div class="icon">📏</div>
+                <h2 data-i18n="guide.title">버튼을 눌러 측정을 시작하세요</h2>
+                <button id="start-btn" class="measure-btn" data-i18n="buttons.start">📐 측정 시작</button>
+            </div>
+
+            <!-- 측정 중 -->
+            <div id="measuring-card" class="guide-card" style="display: none;">
+                <div class="icon">⏱️</div>
+                <h2 data-i18n="measuring.title">측정 중...</h2>
+                <div class="countdown" id="countdown">5</div>
+                <p data-i18n="measuring.instruction">스마트폰을 움직이지 말고 기다려주세요</p>
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+            </div>
+
+            <!-- 측정 결과 -->
+            <div id="result-card" class="guide-card" style="display: none;">
+                <div class="icon">📊</div>
+                <h2 data-i18n="result.title">측정 결과</h2>
+                
+                <div class="tilt-display">
+                    <div class="angle-meter">
+                        <div class="meter-title" data-i18n="result.roll_label">좌우 (Roll)</div>
+                        <div class="meter-container">
+                            <div class="meter">
+                                <div class="meter-needle" id="roll-needle"></div>
+                            </div>
+                            <div class="angle-value" id="roll-value">0.0°</div>
+                        </div>
+                    </div>
+                    <div class="angle-meter">
+                        <div class="meter-title" data-i18n="result.pitch_label">앞뒤 (Pitch)</div>
+                        <div class="meter-container">
+                            <div class="meter">
+                                <div class="meter-needle" id="pitch-needle"></div>
+                            </div>
+                            <div class="angle-value" id="pitch-value">0.0°</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 버블 수평계 -->
+                <div class="bubble-level-container">
+                    <div class="level-tube">
+                        <div class="level-bubble" id="level-bubble"></div>
+                    </div>
+                    <div class="level-status" id="level-status" data-i18n="result.level_checking">확인 중...</div>
+                </div>
+
+                <button id="remeasure-btn" class="measure-btn secondary" data-i18n="buttons.remeasure">다시 측정</button>
+            </div>
+        </main>
+        
+        <!-- 하단 광고 -->
+        <div class="ad-container ad-bottom">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXX"
+                 data-ad-slot="4444444444"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        </div>
+        
+        <footer>
+             <p data-i18n="footer.text">Tilt Level Tool</p>
+        </footer>
+    </div>
+
+    <!-- AdSense 초기화 스크립트 -->
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

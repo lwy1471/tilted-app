@@ -1,0 +1,355 @@
+/* 기본 스타일 및 다크 모드 지원 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    --primary-color: #007AFF;
+    --background-color: #F2F2F7;
+    --card-background: #FFFFFF;
+    --text-primary: #000000;
+    --text-secondary: #6D6D72;
+    --border-color: #D1D1D6;
+    --needle-color: #FF3B30;
+    --shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    --border-radius: 18px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #000000;
+        --card-background: #1C1C1E;
+        --text-primary: #FFFFFF;
+        --text-secondary: #8E8E93;
+        --border-color: #38383A;
+        --shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+    }
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    line-height: 1.5;
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+/* 광고 영역 */
+.ad-container {
+    margin: 16px 0;
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--card-background);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    padding: 10px;
+}
+
+.ad-top {
+    margin-bottom: 20px;
+}
+
+.ad-bottom {
+    margin-top: 20px;
+}
+
+/* 사이드바 광고 (데스크톱 전용) */
+.ad-sidebar {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 160px;
+    min-height: 600px;
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px;
+    display: none; /* 기본적으로 숨김 */
+    z-index: 100;
+}
+
+.ad-left {
+    left: 20px;
+}
+
+.ad-right {
+    right: 20px;
+}
+
+/* 데스크톱에서만 사이드바 광고 표시 */
+@media (min-width: 1200px) {
+    .ad-sidebar {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    
+    body {
+        padding: 20px 200px; /* 좌우 사이드바 공간 확보 */
+    }
+}
+
+/* 컨테이너 */
+.container {
+    max-width: 420px;
+    width: 100%;
+}
+
+/* 헤더 */
+header {
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.welcome {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+}
+
+/* 가이드 카드 */
+.guide-card {
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.guide-card .icon {
+    font-size: 3rem;
+    line-height: 1;
+}
+
+.guide-card h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+/* 버튼 */
+.measure-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 16px 24px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+    margin-top: 12px;
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.25);
+}
+
+.measure-btn:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+}
+
+.measure-btn.secondary {
+    background: #555;
+    box-shadow: 0 4px 12px rgba(85, 85, 85, 0.2);
+}
+
+/* 측정 중 */
+#measuring-card .countdown {
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 10px 0;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: var(--border-color);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.progress {
+    height: 100%;
+    background: var(--primary-color);
+    transition: width 0.3s ease-out;
+    border-radius: 3px;
+}
+
+/* 결과: 각도계 */
+.tilt-display {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 20px 0;
+    gap: 20px;
+}
+
+.angle-meter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.meter-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+
+.meter-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.meter {
+    width: 130px;
+    height: 65px;
+    position: relative;
+    background: var(--background-color);
+    border-radius: 65px 65px 0 0;
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.meter-needle {
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    width: 2px;
+    height: 60px;
+    background: var(--needle-color);
+    transform-origin: bottom center;
+    transform: translateX(-50%) rotate(0deg);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-radius: 1px;
+}
+
+.angle-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* 결과: 버블 수평계 */
+.bubble-level-container {
+    width: 100%;
+    padding: 20px 0 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.level-tube {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(145deg, #f0f0f0, #e6e6e6);
+    border: 3px solid var(--border-color);
+    border-radius: 50%;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 
+        inset 0 4px 8px rgba(0,0,0,0.1),
+        0 4px 12px rgba(0,0,0,0.15);
+    overflow: hidden;
+}
+
+@media (prefers-color-scheme: dark) {
+    .level-tube {
+        background: linear-gradient(145deg, #2c2c2e, #1c1c1e);
+        box-shadow: 
+            inset 0 4px 8px rgba(0,0,0,0.3),
+            0 4px 12px rgba(0,0,0,0.4);
+    }
+}
+
+/* 중앙 목표 영역 */
+.level-tube::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--text-secondary);
+    border-radius: 50%;
+    opacity: 0.4;
+}
+
+/* 수평/수직 가이드 라인 */
+.level-tube::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 160px;
+    height: 160px;
+    border: 1px solid var(--text-secondary);
+    border-radius: 50%;
+    opacity: 0.2;
+}
+
+.level-bubble {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 32px;
+    height: 32px;
+    background: radial-gradient(circle at 30% 30%, #4CAF50, #2E7D32);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 
+        0 2px 6px rgba(0,0,0,0.2),
+        inset 0 1px 2px rgba(255,255,255,0.3);
+    z-index: 10;
+}
+
+/* 수평계 상태 텍스트 */
+.level-status {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+/* 푸터 */
+footer {
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
