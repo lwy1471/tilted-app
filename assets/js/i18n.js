@@ -8,17 +8,64 @@ class I18nManager {
         this.supportedLanguages = ['en', 'ko', 'zh', 'ja', 'es', 'ar'];
         this.translations = window.translations || {};
         this.loadedLanguages = new Set();
+        this.isReady = false;
         
+        // 이미 로드된 언어 파일들 감지
+        this.detectPreloadedLanguages();
+        
+        // 즉시 초기화 시작
         this.init();
     }
 
+    detectPreloadedLanguages() {
+        // window.translations 객체에서 이미 로드된 언어들 확인
+        if (window.translations) {
+            Object.keys(window.translations).forEach(lang => {
+                if (this.supportedLanguages.includes(lang)) {
+                    this.loadedLanguages.add(lang);
+                    console.log(`Pre-loaded language detected: ${lang}`);
+                }
+            });
+        }
+    }
+
     async init() {
-        // 언어 감지
-        const detectedLang = this.detectLanguage();
-        
-        // 기본 언어 로드
-        await this.loadLanguage(detectedLang);
-        this.setLanguage(detectedLang);
+        try {
+            // 언어 감지
+            const detectedLang = this.detectLanguage();
+            
+            // 필요한 언어 파일들 로드
+            const languagesToLoad = [];
+            
+            // 영어는 항상 필요 (폴백용)
+            if (!this.loadedLanguages.has('en')) {
+                languagesToLoad.push(this.loadLanguage('en'));
+            }
+            
+            // 감지된 언어가 영어가 아니고 아직 로드되지 않았다면 로드
+            if (detectedLang !== 'en' && !this.loadedLanguages.has(detectedLang)) {
+                languagesToLoad.push(this.loadLanguage(detectedLang));
+            }
+            
+            // 필요한 언어들 로드 완료 대기
+            if (languagesToLoad.length > 0) {
+                await Promise.all(languagesToLoad);
+            }
+            
+            this.setLanguage(detectedLang);
+            this.isReady = true;
+            
+            // 초기화 완료 이벤트 발생
+            window.dispatchEvent(new CustomEvent('i18nReady'));
+            console.log(`I18n initialized with language: ${detectedLang}`);
+            
+        } catch (error) {
+            console.error('I18n initialization failed:', error);
+            // 실패해도 기본 언어로 설정
+            this.currentLang = 'en';
+            this.isReady = true;
+            window.dispatchEvent(new CustomEvent('i18nReady'));
+        }
     }
 
     detectLanguage() {
@@ -51,6 +98,7 @@ class I18nManager {
             script.src = `assets/js/lang/${lang}.js`;
             script.onload = () => {
                 this.loadedLanguages.add(lang);
+                console.log(`Language loaded: ${lang}`);
                 resolve();
             };
             script.onerror = () => {
@@ -127,7 +175,30 @@ class I18nManager {
     getSupportedLanguages() {
         return [...this.supportedLanguages];
     }
+
+    // 준비 상태 확인
+    ready() {
+        return this.isReady;
+    }
+
+    // 준비될 때까지 대기
+    waitForReady() {
+        return new Promise((resolve) => {
+            if (this.isReady) {
+                resolve();
+            } else {
+                window.addEventListener('i18nReady', () => resolve(), { once: true });
+            }
+        });
+    }
 }
 
 // 전역 i18n 인스턴스 생성
-window.i18n = new I18nManager(); 
+window.i18n = new I18nManager();
+
+// DOM이 로드되면 번역 적용
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.i18n && window.i18n.ready()) {
+        window.i18n.applyTranslations();
+    }
+}); 

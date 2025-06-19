@@ -198,29 +198,30 @@ class TiltMeasurer {
             } catch (error) {
                 console.log('AdSense initialization error:', error);
             }
-        } else {
-            // AdSense 로드를 기다림
-            setTimeout(() => this.initializeAds(), 1000);
         }
     }
 
+    // 측정 사이에 광고 표시
     showAdBetweenMeasurement() {
-        // 측정 시작 전 추가 광고 표시 (선택사항)
-        // 인터스티셜 광고나 배너 광고를 여기서 트리거할 수 있음
-        console.log('Showing ads before measurement...');
+        // 여기에 중간 광고 로직 추가 가능
+        console.log('Showing ad between measurement');
     }
 }
 
-// i18n 시스템이 로드된 후 TiltMeasurer 초기화
-document.addEventListener('DOMContentLoaded', () => {
-    // i18n이 초기화될 때까지 대기
-    const initTiltMeasurer = () => {
-        if (window.i18n && window.i18n.getCurrentLanguage) {
-            new TiltMeasurer();
-        } else {
-            setTimeout(initTiltMeasurer, 100);
-        }
-    };
+// TiltMeasurer 초기화 함수
+const initTiltMeasurer = async () => {
+    // i18n이 준비될 때까지 대기
+    if (window.i18n) {
+        await window.i18n.waitForReady();
+    }
     
+    // TiltMeasurer 인스턴스 생성
+    new TiltMeasurer();
+};
+
+// DOM이 로드되면 초기화
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTiltMeasurer);
+} else {
     initTiltMeasurer();
-});
+}
