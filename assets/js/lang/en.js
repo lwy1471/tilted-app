@@ -1,8 +1,8 @@
 // English translations
 window.translations = window.translations || {};
 window.translations.en = {
-    "meta.title": "Tilt - Online Level Tool (No App Required)",
-    "meta.description": "Measure angles instantly with your smartphone - no app installation required! Professional-grade online level tool for DIY, construction, and home projects.",
+    "meta.title": "Online Level Tool (No App Required)",
+    "meta.description": "Measure angles instantly with your smartphone - no app installation required!",
     "title": "📱 Online Level Tool",
     "welcome": "No app required - measure angles instantly on your smartphone!",
     "mobile_only.title": "Not available on Desktop",

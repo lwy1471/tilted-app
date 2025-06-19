@@ -1,8 +1,8 @@
 // Spanish translations
 window.translations = window.translations || {};
 window.translations.es = {
-    "meta.title": "Tilt - Nivel Online (Sin Instalación de App)",
-    "meta.description": "Mide ángulos al instante con tu smartphone - ¡no requiere instalación de aplicación! Herramienta de nivel online de grado profesional para bricolaje, construcción y proyectos domésticos.",
+    "meta.title": "Nivel Online (Sin Instalación de App)",
+    "meta.description": "Mide ángulos al instante con tu smartphone - ¡no requiere instalación de aplicación!",
     "title": "📱 Nivel Online",
     "welcome": "Sin instalación de app - ¡mide ángulos al instante con tu smartphone!",
     "mobile_only.title": "No disponible en escritorio",

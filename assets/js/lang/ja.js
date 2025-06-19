@@ -1,8 +1,8 @@
 // Japanese translations
 window.translations = window.translations || {};
 window.translations.ja = {
-    "meta.title": "Tilt - オンライン水準器 (アプリ不要)",
-    "meta.description": "スマートフォンで角度を即座に測定 - アプリのインストール不要！DIY、建設、家庭プロジェクト用のプロ級オンライン水準器ツール。",
+    "meta.title": "オンライン水準器 (アプリ不要)",
+    "meta.description": "スマートフォンで角度を即座に測定 - アプリのインストール不要！",
     "title": "📱 オンライン水準器",
     "welcome": "アプリ不要 - スマートフォンで角度を即座に測定！",
     "mobile_only.title": "PCでは利用できません",
