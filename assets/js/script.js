@@ -2,10 +2,9 @@
  * TiltMeasurer - 스마트폰 기울기 측정기
  * 주요 기능:
  * 1. 기기 지원 여부 (모바일, 센서) 확인
- * 2. 다국어 자동 감지 및 적용 (6개 국어)
- * 3. '측정 시작' 클릭 시 iOS에서 센서 접근 권한 자동 요청
- * 4. 5초 카운트다운 후 2초간 기울기 측정
- * 5. 측정된 평균값을 2개의 각도계로 시각화
+ * 2. '측정 시작' 클릭 시 iOS에서 센서 접근 권한 자동 요청
+ * 3. 5초 카운트다운 후 2초간 기울기 측정
+ * 4. 측정된 평균값을 2개의 각도계로 시각화
  */
 class TiltMeasurer {
     constructor() {
@@ -36,13 +35,11 @@ class TiltMeasurer {
         this.isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
         this.measurements = [];
         this.countdownTimer = null;
-        this.currentLang = 'en';
 
         this.init();
     }
 
     init() {
-        this.setupTranslations();
         this.bindEvents();
         this.showInitialScreen();
         this.initializeAds();
@@ -78,11 +75,11 @@ class TiltMeasurer {
                 if (permissionState === 'granted') {
                     this.startMeasurementFlow();
                 } else {
-                    alert(this.t('alert.permission_denied'));
+                    alert(window.i18n.t('alert.permission_denied'));
                 }
             } catch (error) {
                 console.error("Permission request error:", error);
-                alert(this.t('alert.permission_error'));
+                alert(window.i18n.t('alert.permission_error'));
             }
         } else {
             this.startMeasurementFlow();
@@ -127,7 +124,7 @@ class TiltMeasurer {
 
     calculateAndShowResults() {
         if (this.measurements.length === 0) {
-            alert(this.t('alert.no_sensor_data'));
+            alert(window.i18n.t('alert.no_sensor_data'));
             this.showInitialScreen();
             return;
         }
@@ -153,8 +150,8 @@ class TiltMeasurer {
         
         // 2D 버블 수평계 업데이트 (Roll과 Pitch 모두 반영)
         if (this.elements.displays.levelBubble) {
-            // 원형 수평계의 반지름 (CSS에서 200px 원의 절반에서 버블 크기 고려)
-            const maxRadius = 80; // 원 중심에서 가장자리까지의 최대 이동 거리
+            // 원형 수평계의 반지름 (CSS에서 160px 원의 절반에서 버블 크기 고려)
+            const maxRadius = 66; // 원 중심에서 가장자리까지의 최대 이동 거리
             
             // 각도를 제한 (-30도 ~ 30도)
             const limitedRoll = Math.max(-30, Math.min(30, roll));
@@ -182,199 +179,8 @@ class TiltMeasurer {
                 statusKey = 'result.level_tilted';
             }
             
-            this.elements.displays.levelStatus.textContent = this.t(statusKey);
+            this.elements.displays.levelStatus.textContent = window.i18n.t(statusKey);
         }
-    }
-    
-    // --- 다국어 지원 ---
-    setupTranslations() {
-        const translations = {
-            en: {
-                "meta.title": "Tilt - Smartphone Level Tool",
-                "meta.description": "An accurate and easy-to-use tilt meter and level tool on your smartphone. Perfect for DIY, construction, and home projects.",
-                "title": "📱 Tilt Level",
-                "welcome": "Accurate tilt measurement for your smartphone.",
-                "mobile_only.title": "Not available on Desktop",
-                "mobile_only.description": "This app uses your smartphone's sensors. Please use a mobile device.",
-                "guide.title": "Press the button to start measuring",
-                "buttons.start": "📐 Start Measurement",
-                "buttons.remeasure": "Measure Again",
-                "measuring.title": "Measuring...",
-                "measuring.instruction": "Hold your smartphone still.",
-                "result.title": "Measurement Result",
-                "result.roll_label": "Roll",
-                "result.pitch_label": "Pitch",
-                "result.level_checking": "Checking...",
-                "result.level_perfect": "Perfect Level! 🎯",
-                "result.level_good": "Nearly Level ✓",
-                "result.level_tilted": "Tilted",
-                "footer.text": "Tilt Level Tool",
-                "alert.permission_denied": "Permission denied. Please enable Motion & Orientation Access in your browser settings.",
-                "alert.permission_error": "Could not request permission. Please try again.",
-                "alert.no_sensor_data": "Could not read sensor data. Please check if your device is supported."
-            },
-            ko: {
-                "meta.title": "Tilt - 스마트폰 기울기 측정기",
-                "meta.description": "스마트폰을 이용한 정확하고 사용하기 쉬운 기울기 측정 및 수평계 도구. DIY, 건축, 인테리어 작업에 적합합니다.",
-                "title": "📱 기울기 측정기",
-                "welcome": "스마트폰의 기울기를 정확하게 측정하세요.",
-                "mobile_only.title": "PC에서는 사용할 수 없습니다",
-                "mobile_only.description": "이 앱은 스마트폰의 센서를 사용합니다. 모바일 기기로 접속해주세요.",
-                "guide.title": "버튼을 눌러 측정을 시작하세요",
-                "buttons.start": "📐 측정 시작",
-                "buttons.remeasure": "다시 측정",
-                "measuring.title": "측정 중...",
-                "measuring.instruction": "스마트폰을 움직이지 말고 기다려주세요.",
-                "result.title": "측정 결과",
-                "result.roll_label": "좌우 기울기",
-                "result.pitch_label": "앞뒤 기울기",
-                "result.level_checking": "확인 중...",
-                "result.level_perfect": "완벽한 수평! 🎯",
-                "result.level_good": "거의 수평 ✓",
-                "result.level_tilted": "기울어짐",
-                "footer.text": "Tilt 기울기 측정 도구",
-                "alert.permission_denied": "권한이 거부되었습니다. 브라우저 설정에서 '동작 및 방향' 접근을 허용해주세요.",
-                "alert.permission_error": "권한을 요청할 수 없습니다. 다시 시도해주세요.",
-                "alert.no_sensor_data": "센서 데이터를 읽을 수 없습니다. 기기가 지원되는지 확인해주세요."
-            },
-            zh: {
-                "meta.title": "Tilt - 智能手机水平仪",
-                "meta.description": "一款精确且易于使用的智能手机倾斜计和水平仪工具。非常适合DIY、建筑和家居项目。",
-                "title": "📱 倾斜仪",
-                "welcome": "精确测量智能手机的倾斜度。",
-                "mobile_only.title": "无法在电脑上使用",
-                "mobile_only.description": "本应用需使用智能手机的传感器，请用移动设备访问。",
-                "guide.title": "按按钮开始测量",
-                "buttons.start": "📐 开始测量",
-                "buttons.remeasure": "重新测量",
-                "measuring.title": "测量中…",
-                "measuring.instruction": "请保持手机静止。",
-                "result.title": "测量结果",
-                "result.roll_label": "左右倾斜",
-                "result.pitch_label": "前后倾斜",
-                "result.level_checking": "检查中...",
-                "result.level_perfect": "完美水平! 🎯",
-                "result.level_good": "接近水平 ✓",
-                "result.level_tilted": "倾斜",
-                "footer.text": "Tilt 倾斜水平工具",
-                "alert.permission_denied": "权限被拒绝。请在浏览器设置中启用\"运动和方向访问\"。",
-                "alert.permission_error": "无法请求权限，请重试。",
-                "alert.no_sensor_data": "无法读取传感器数据，请检查您的设备是否受支持。"
-            },
-            ja: {
-                "meta.title": "Tilt - スマートフォン水準器",
-                "meta.description": "正確で使いやすいスマートフォン傾斜計および水準器ツール。DIY、建設、家庭プロジェクトに最適です。",
-                "title": "📱 傾斜計",
-                "welcome": "スマートフォンの傾きを正確に測定します。",
-                "mobile_only.title": "PCでは利用できません",
-                "mobile_only.description": "このアプリはスマートフォンのセンサーを使用します。モバイルデバイスでアクセスしてください。",
-                "guide.title": "ボタンを押して測定を開始",
-                "buttons.start": "📐 測定開始",
-                "buttons.remeasure": "再測定",
-                "measuring.title": "測定中…",
-                "measuring.instruction": "スマートフォンを動かさないでください。",
-                "result.title": "測定結果",
-                "result.roll_label": "左右の傾き",
-                "result.pitch_label": "前後の傾き",
-                "result.level_checking": "確認中...",
-                "result.level_perfect": "完璧な水平! 🎯",
-                "result.level_good": "ほぼ水平 ✓",
-                "result.level_tilted": "傾斜",
-                "footer.text": "Tilt 傾斜水準ツール",
-                "alert.permission_denied": "権限が拒否されました。ブラウザの設定で「モーションと方向へのアクセス」を有効にしてください。",
-                "alert.permission_error": "権限を要求できませんでした。もう一度お試しください。",
-                "alert.no_sensor_data": "センサーデータを読み取れませんでした。お使いのデバイスが対応しているか確認してください。"
-            },
-            es: {
-                "meta.title": "Tilt - Nivel para Smartphone",
-                "meta.description": "Un medidor de inclinación y nivel preciso y fácil de usar en tu smartphone. Perfecto para bricolaje, construcción y proyectos domésticos.",
-                "title": "📱 Nivel de Inclinación",
-                "welcome": "Medición precisa de la inclinación para tu smartphone.",
-                "mobile_only.title": "No disponible en escritorio",
-                "mobile_only.description": "Esta aplicación utiliza los sensores de tu smartphone. Por favor, úsala en un dispositivo móvil.",
-                "guide.title": "Pulsa el botón para empezar a medir",
-                "buttons.start": "📐 Iniciar Medición",
-                "buttons.remeasure": "Medir de Nuevo",
-                "measuring.title": "Midiendo...",
-                "measuring.instruction": "Mantén tu smartphone quieto.",
-                "result.title": "Resultado de la Medición",
-                "result.roll_label": "Inclinación Lateral",
-                "result.pitch_label": "Inclinación Frontal",
-                "result.level_checking": "Verificando...",
-                "result.level_perfect": "¡Nivel Perfecto! 🎯",
-                "result.level_good": "Casi Nivelado ✓",
-                "result.level_tilted": "Inclinado",
-                "footer.text": "Herramienta de Nivel Tilt",
-                "alert.permission_denied": "Permiso denegado. Por favor, activa el acceso a 'Movimiento y Orientación' en los ajustes de tu navegador.",
-                "alert.permission_error": "No se pudo solicitar el permiso. Por favor, inténtalo de nuevo.",
-                "alert.no_sensor_data": "No se pudieron leer los datos del sensor. Por favor, comprueba si tu dispositivo es compatible."
-            },
-            ar: {
-                "meta.title": "Tilt - ميزان استواء للهواتف الذكية",
-                "meta.description": "مقياس ميل وميزان استواء دقيق وسهل الاستخدام على هاتفك الذكي. مثالي للمشاريع اليدوية والبناء والمشاريع المنزلية.",
-                "title": "📱 مقياس الميل",
-                "welcome": "قياس دقيق لميل هاتفك الذكي.",
-                "mobile_only.title": "غير متوفر على سطح المكتب",
-                "mobile_only.description": "هذا التطبيق يستخدم مستشعرات هاتفك الذكي. يرجى استخدامه على جهاز محمول.",
-                "guide.title": "اضغط على الزر لبدء القياس",
-                "buttons.start": "📐 بدء القياس",
-                "buttons.remeasure": "إعادة القياس",
-                "measuring.title": "جاري القياس...",
-                "measuring.instruction": "أبقِ هاتفك الذكي ثابتًا.",
-                "result.title": "نتيجة القياس",
-                "result.roll_label": "الميل الجانبي",
-                "result.pitch_label": "الميل الأمامي",
-                "result.level_checking": "جاري التحقق...",
-                "result.level_perfect": "مستوى مثالي! 🎯",
-                "result.level_good": "مستوى جيد ✓",
-                "result.level_tilted": "مائل",
-                "footer.text": "أداة مستوى الميل Tilt",
-                "alert.permission_denied": "تم رفض الإذن. يرجى تمكين 'الوصول إلى الحركة والاتجاه' في إعدادات متصفحك.",
-                "alert.permission_error": "تعذر طلب الإذن. يرجى المحاولة مرة أخرى.",
-                "alert.no_sensor_data": "تعذر قراءة بيانات المستشعر. يرجى التحقق مما إذا كان جهازك مدعومًا."
-            }
-        };
-        this.translations = translations;
-
-        // URL의 'lang' 파라미터 또는 브라우저 언어 설정에 따라 언어 감지
-        const urlParams = new URLSearchParams(window.location.search);
-        const langFromUrl = urlParams.get('lang');
-        const browserLang = (navigator.language || navigator.userLanguage).split('-')[0];
-        
-        let initialLang = 'en'; // 기본값
-        if (langFromUrl && this.translations[langFromUrl]) {
-            initialLang = langFromUrl;
-        } else if (this.translations[browserLang]) {
-            initialLang = browserLang;
-        }
-        
-        this.setLanguage(initialLang);
-    }
-    
-    setLanguage(lang) {
-        this.currentLang = lang;
-        document.documentElement.lang = lang;
-        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            const translation = this.t(key);
-            if (key.startsWith('meta.')) {
-                el.setAttribute('content', translation);
-            } else {
-                el.innerHTML = translation;
-            }
-        });
-
-        // 타이틀 태그는 innerHTML이 아닌 textContent로 변경해야 합니다.
-        const titleEl = document.querySelector('title');
-        if(titleEl) {
-            titleEl.textContent = this.t('meta.title');
-        }
-    }
-
-    t(key) {
-        return this.translations[this.currentLang]?.[key] || this.translations['en'][key];
     }
 
     // --- 광고 관리 ---
@@ -405,6 +211,16 @@ class TiltMeasurer {
     }
 }
 
+// i18n 시스템이 로드된 후 TiltMeasurer 초기화
 document.addEventListener('DOMContentLoaded', () => {
-    new TiltMeasurer();
+    // i18n이 초기화될 때까지 대기
+    const initTiltMeasurer = () => {
+        if (window.i18n && window.i18n.getCurrentLanguage) {
+            new TiltMeasurer();
+        } else {
+            setTimeout(initTiltMeasurer, 100);
+        }
+    };
+    
+    initTiltMeasurer();
 });
