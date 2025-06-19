@@ -1,12 +1,12 @@
 // Spanish translations
 window.translations = window.translations || {};
 window.translations.es = {
-    "meta.title": "Tilt - Nivel para Smartphone",
-    "meta.description": "Un medidor de inclinación y nivel preciso y fácil de usar en tu smartphone. Perfecto para bricolaje, construcción y proyectos domésticos.",
-    "title": "📱 Nivel de Inclinación",
-    "welcome": "Medición precisa de la inclinación para tu smartphone.",
+    "meta.title": "Tilt - Nivel Online (Sin Instalación de App)",
+    "meta.description": "Mide ángulos al instante con tu smartphone - ¡no requiere instalación de aplicación! Herramienta de nivel online de grado profesional para bricolaje, construcción y proyectos domésticos.",
+    "title": "📱 Nivel Online",
+    "welcome": "Sin instalación de app - ¡mide ángulos al instante con tu smartphone!",
     "mobile_only.title": "No disponible en escritorio",
-    "mobile_only.description": "Esta aplicación utiliza los sensores de tu smartphone. Por favor, úsala en un dispositivo móvil.",
+    "mobile_only.description": "Esta herramienta utiliza los sensores de tu smartphone. Por favor, úsala en un dispositivo móvil - ¡no necesitas instalar ninguna aplicación!",
     "guide.title": "Pulsa el botón para empezar a medir",
     "buttons.start": "📐 Iniciar Medición",
     "buttons.remeasure": "Medir de Nuevo",
@@ -19,7 +19,7 @@ window.translations.es = {
     "result.level_perfect": "¡Nivel Perfecto! 🎯",
     "result.level_good": "Casi Nivelado ✓",
     "result.level_tilted": "Inclinado",
-    "footer.text": "Herramienta de Nivel Tilt",
+    "footer.text": "Nivel Online - Sin Instalación de App",
     "alert.permission_denied": "Permiso denegado. Por favor, activa el acceso a 'Movimiento y Orientación' en los ajustes de tu navegador.",
     "alert.permission_error": "No se pudo solicitar el permiso. Por favor, inténtalo de nuevo.",
     "alert.no_sensor_data": "No se pudieron leer los datos del sensor. Por favor, comprueba si tu dispositivo es compatible."
