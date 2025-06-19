@@ -1,57 +1,86 @@
-# 📱 Tilt Level - Smartphone Tilt Measurement Tool
+# 📱 Tilted - Smartphone Level Tool
 
-A precise and easy-to-use tilt meter and level tool for smartphones. Perfect for DIY, construction, and home projects.
+An accurate and easy-to-use tilt meter and level tool for smartphones. Perfect for DIY, construction, and home projects.
 
-## 🌟 Features
+## 🌐 Live Demo
+**Website**: [https://tilted.online](https://tilted.online)
 
-- **2D Angle Meters**: Visual Roll and Pitch measurement with needle gauges
-- **Bubble Level**: Realistic 2D bubble level with liquid-like physics
-- **Multi-language Support**: Auto-detection for 6 languages (EN, KO, ZH, JA, ES, AR)
-- **Mobile Optimized**: Works on iOS and Android smartphones
-- **No Installation**: Pure web application, no app store needed
-- **Ad-Supported**: Monetized with Google AdSense
+## 📁 Project Structure
 
-## 🚀 Live Demo
+```
+tilted/
+├── assets/                    # Static assets
+│   ├── css/                  # Stylesheets
+│   │   ├── style.css        # Main styles
+│   │   └── cookie-consent.css # GDPR cookie consent styles
+│   ├── js/                  # JavaScript files
+│   │   ├── script.js        # Main application logic
+│   │   └── cookie-consent.js # GDPR cookie consent logic
+│   └── images/              # Image assets
+├── docs/                    # Documentation & marketing
+│   ├── blog-post.md        # Dev.to blog post
+│   └── submission-sites.md # Web directory submission list
+├── index.html              # Main HTML file
+├── ads.txt                # Google AdSense verification
+├── robots.txt             # Search engine crawler instructions
+├── sitemap.xml           # XML sitemap for SEO
+├── CNAME                 # Custom domain configuration
+└── [verification files]  # Search engine verification files
+```
 
-Visit: [https://tilted.app](https://tilted.app)
+## ✨ Features
 
-## 🛠️ Technology Stack
+- **Real-time Tilt Measurement**: Uses DeviceOrientationEvent API
+- **Dual Display**: Analog gauges + 2D bubble level
+- **Multi-language Support**: 6 languages (Korean, English, Chinese, Japanese, Spanish, Arabic)
+- **Mobile Optimized**: Responsive design for smartphones
+- **GDPR Compliant**: Cookie consent management
+- **SEO Optimized**: Multi-language sitemap, structured data
+- **Ad Monetization**: Google AdSense integration
 
-- **Frontend**: Vanilla HTML5, CSS3, JavaScript (ES6+)
-- **Sensors**: DeviceOrientationEvent API
-- **Styling**: CSS Custom Properties, Responsive Design
+## 🛠️ Technologies
+
+- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
+- **APIs**: DeviceOrientationEvent
 - **Deployment**: GitHub Pages
+- **Domain**: Custom domain via Namecheap
 - **Monetization**: Google AdSense
+- **SEO**: Structured data, multi-language support
 
-## 📱 Supported Devices
+## 🚀 Development
 
-- iOS Safari (requires HTTPS for sensor access)
-- Android Chrome/Firefox
-- Any mobile browser with gyroscope support
-
-## 🌍 Supported Languages
-
-- 🇺🇸 English
-- 🇰🇷 한국어 (Korean)
-- 🇨🇳 中文 (Chinese)
-- 🇯🇵 日本語 (Japanese)
-- 🇪🇸 Español (Spanish)
-- 🇸🇦 العربية (Arabic)
-
-## 🔧 Development
-
+### Local Development
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/tilted-app.git
+git clone https://github.com/lwy1471/tilted-app.git
+cd tilted-app
 
-# Open in browser
-open index.html
+# Serve locally (Python 3)
+python -m http.server 8000
+
+# Or use any static file server
 ```
+
+### File Organization
+- **CSS**: All stylesheets in `assets/css/`
+- **JavaScript**: All scripts in `assets/js/`
+- **Documentation**: Marketing materials in `docs/`
+- **SEO Files**: robots.txt, sitemap.xml, ads.txt in root
+
+## 📈 SEO & Marketing
+
+- **Search Engines**: Google, Naver, Bing registered
+- **Structured Data**: JSON-LD implementation
+- **Multi-language**: hreflang tags for international SEO
+- **Performance**: Optimized for Core Web Vitals
+
+## 📱 Browser Support
+
+- **iOS Safari**: 13.0+
+- **Chrome Mobile**: 80+
+- **Samsung Internet**: 12+
+- **Firefox Mobile**: 68+
 
 ## 📄 License
 
-MIT License - feel free to use and modify.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. 
+This project is open source and available under the MIT License. 
