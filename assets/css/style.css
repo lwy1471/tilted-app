@@ -49,10 +49,10 @@ body {
     position: relative;
 }
 
-/* 광고 영역 - 더 컴팩트하게 */
+/* 광고 영역 - 모바일 최적화 */
 .ad-container {
     margin: 12px 0;
-    min-height: 50px;
+    min-height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -61,6 +61,7 @@ body {
     border: 1px solid var(--border-color);
     padding: 8px;
     box-shadow: var(--shadow);
+    overflow: hidden;
 }
 
 .ad-top {
@@ -69,6 +70,7 @@ body {
 
 .ad-bottom {
     margin-top: 16px;
+    min-height: 260px; /* 모바일 직사각형 광고용 */
 }
 
 /* 사이드바 광고 (데스크톱 전용) */
