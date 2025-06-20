@@ -5,7 +5,7 @@
 class I18nManager {
     constructor() {
         this.currentLang = 'en';
-        this.supportedLanguages = ['en', 'ko', 'zh', 'ja', 'es', 'ar'];
+        this.supportedLanguages = ['en', 'ko', 'zh', 'ja', 'es', 'ar', 'ru'];
         this.translations = window.translations || {};
         this.loadedLanguages = new Set();
         this.isReady = false;
@@ -77,11 +77,32 @@ class I18nManager {
             return langFromUrl;
         }
 
-        // 브라우저 언어 설정 확인
-        const browserLang = (navigator.language || navigator.userLanguage).split('-')[0];
+        // 브라우저 언어 설정 확인 (더 정교한 감지)
+        const browserLanguages = navigator.languages || [navigator.language || navigator.userLanguage];
         
-        if (this.supportedLanguages.includes(browserLang)) {
-            return browserLang;
+        for (const lang of browserLanguages) {
+            const langCode = lang.split('-')[0];
+            if (this.supportedLanguages.includes(langCode)) {
+                return langCode;
+            }
+        }
+
+        // 지역별 기본 언어 설정
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        
+        // 한국 시간대면 한국어 우선
+        if (timezone.includes('Seoul') || timezone.includes('Asia/Seoul')) {
+            return 'ko';
+        }
+        
+        // 중국 시간대면 중국어 우선
+        if (timezone.includes('Shanghai') || timezone.includes('Beijing') || timezone.includes('Asia/Shanghai')) {
+            return 'zh';
+        }
+        
+        // 일본 시간대면 일본어 우선
+        if (timezone.includes('Tokyo') || timezone.includes('Asia/Tokyo')) {
+            return 'ja';
         }
 
         // 기본 언어 반환
@@ -150,6 +171,22 @@ class I18nManager {
         if (titleElement) {
             titleElement.textContent = this.t('meta.title');
         }
+
+        // Open Graph 및 Twitter 메타 태그 업데이트
+        this.updateSocialMetaTags();
+    }
+
+    updateSocialMetaTags() {
+        // Open Graph 태그들 업데이트
+        const ogTitle = document.querySelector('meta[property="og:title"]');
+        const ogDescription = document.querySelector('meta[property="og:description"]');
+        const twitterTitle = document.querySelector('meta[property="twitter:title"]');
+        const twitterDescription = document.querySelector('meta[property="twitter:description"]');
+
+        if (ogTitle) ogTitle.setAttribute('content', this.t('meta.title'));
+        if (ogDescription) ogDescription.setAttribute('content', this.t('meta.description'));
+        if (twitterTitle) twitterTitle.setAttribute('content', this.t('meta.title'));
+        if (twitterDescription) twitterDescription.setAttribute('content', this.t('meta.description'));
     }
 
     t(key) {
