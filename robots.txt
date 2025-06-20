@@ -12,4 +12,34 @@ User-agent: Bingbot
 Allow: /
 
 User-agent: Slurp
+Allow: /
+
+# Naver (Korean search engine)
+User-agent: Yeti
+Allow: /
+
+User-agent: NaverBot
+Allow: /
+
+# Baidu (Chinese search engine)
+User-agent: Baiduspider
+Allow: /
+
+# Yandex (Russian search engine)
+User-agent: YandexBot
+Allow: /
+
+# Sogou (Chinese search engine)
+User-agent: Sogou
+Allow: /
+
+# DuckDuckGo
+User-agent: DuckDuckBot
+Allow: /
+
+# Additional crawlers
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
 Allow: / 
